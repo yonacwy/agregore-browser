@@ -40,7 +40,7 @@ async function downloadExtension (name, { version, url, subfolder }) {
   console.log(`URL: ${finalURL}`)
   console.log(`Destination: ${destination}`)
 
-  const response = await fetch(finalURL)
+  const response = await fetch(finalURL, { signal: AbortSignal.timeout(60000) })
 
   if (!response.ok) {
     throw new Error(`Could not download ${name} at ${version} from ${finalURL}\n${await response.text()}`)
